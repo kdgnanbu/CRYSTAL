@@ -15,7 +15,8 @@
 }
 
 html {
-  scroll-behavior: smooth
+  scroll-behavior: smooth;
+  overflow-x: hidden
 }
 
 body {
@@ -23,7 +24,8 @@ body {
   background: var(--base);
   color: var(--ink);
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-  line-height: 1.8
+  line-height: 1.8;
+  overflow-x: hidden
 }
 
 a {
@@ -418,6 +420,158 @@ main {
   object-fit: cover;
   object-position: bottom center;
   border-radius: 8px
+}
+
+
+.about-copy p {
+  margin-bottom: 1rem
+}
+
+.about-icons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .95rem;
+  width: min(100%, 620px);
+  margin: 1.7rem auto 0;
+  transform: translateX(-1.15rem)
+}
+
+.about-icons img {
+  width: 100%;
+  height: auto;
+  object-fit: contain
+}
+
+.about-visual {
+  position: relative;
+  width: calc(100% + 1.15rem);
+  margin: 0 0 0 -1.15rem;
+  padding: 1.15rem 0 0;
+  border: 2px solid rgba(126, 154, 137, .34);
+  border-radius: 18px;
+  background: rgba(255, 253, 248, .82)
+}
+
+
+.about-visual-frame {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: -1.15rem;
+  margin-left: -1.15rem;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fffdf8;
+  box-shadow: 0 18px 42px rgba(80, 58, 38, .08)
+}
+
+.about-visual-stripe {
+  height: clamp(44px, 7vw, 78px);
+  background: repeating-linear-gradient(135deg, rgba(255, 184, 162, .42) 0 18px, rgba(255, 250, 243, .86) 18px 38px)
+}
+
+.about-building-photo {
+  position: relative;
+  min-height: clamp(280px, 30vw, 420px);
+  background: #6f4f3c
+}
+
+.about-building-photo img {
+  width: 100%;
+  height: clamp(280px, 30vw, 420px);
+  object-fit: cover;
+  object-position: center;
+  border: 0
+}
+
+.about-visual-copy {
+  margin: 0;
+  color: rgba(255, 250, 194, .9);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2.2vw, 2.35rem);
+  font-style: italic;
+  line-height: 1.28;
+  text-align: left;
+  text-shadow: 0 2px 18px rgba(59, 51, 45, .18)
+}
+
+.feature-card h3 {
+  font-size: 1.12rem;
+  font-weight: 800
+}
+
+.feature-card p {
+  margin-bottom: 0;
+  color: var(--muted)
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem
+}
+
+.feature-card {
+  position: relative;
+  min-height: 100%;
+  padding: 1.5rem;
+  overflow: hidden
+}
+
+.feature-number {
+  display: block;
+  margin-bottom: .65rem;
+  color: rgba(184, 138, 95, .42);
+  font-family: Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1
+}
+
+@media (max-width:1199.98px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  }
+}
+
+@media (max-width:767.98px) {
+  .feature-grid {
+    grid-template-columns: 1fr
+  }
+
+  .about-icons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 420px);
+    transform: none
+  }
+
+  .about-visual {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible
+  }
+
+  .about-visual::after {
+    display: none
+  }
+
+  .about-visual-frame {
+    width: 100%;
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto
+  }
+
+
+  .about-building-photo {
+    min-height: 300px
+  }
 }
 
 .fact-list {
