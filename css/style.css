@@ -416,6 +416,7 @@ main {
   min-height: 0;
   aspect-ratio: 4/3;
   object-fit: cover;
+  object-position: bottom center;
   border-radius: 8px
 }
 
@@ -1131,6 +1132,15 @@ main {
   opacity: .35;
   cursor: not-allowed;
   box-shadow: none
+}
+
+@media (hover:none) {
+  .menu-nav:hover:not(:disabled),
+  .menu-nav:focus,
+  .menu-nav:active {
+    background: #fffaf3;
+    color: var(--ink)
+  }
 }
 
 .menu-nav.prev {

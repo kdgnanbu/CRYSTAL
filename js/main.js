@@ -47,7 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
     topIo.observe(hero);
   }
   var fadeItems = Array.from(document.querySelectorAll(".fade-up"));
-  fadeItems.forEach(function (el, index) { el.style.setProperty("--fade-delay", Math.min(index % 6 * 80, 400) + "ms"); });
+  fadeItems.forEach(function (el, index) {
+    if (!el.style.getPropertyValue("--fade-delay")) {
+      el.style.setProperty("--fade-delay", Math.min(index % 6 * 80, 400) + "ms");
+    }
+  });
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
