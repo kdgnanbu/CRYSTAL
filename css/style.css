@@ -303,6 +303,10 @@ main {
   color: #f4dcc4
 }
 
+.hero-eyebrow-sp {
+  display: none
+}
+
 .hero h1 {
   max-width: 720px;
   color: #fff;
@@ -702,6 +706,14 @@ main {
   .hero-copy {
     align-items: flex-end;
     padding-bottom: 5.5rem
+  }
+
+  .hero-eyebrow-pc {
+    display: none
+  }
+
+  .hero-eyebrow-sp {
+    display: inline
   }
 
   .hero-control {
