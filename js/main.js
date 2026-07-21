@@ -20,17 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
     return siteLead.offsetHeight;
   }
   function updateHeaderOffset() {
-    var leadHeight = getLeadHeight();
-    var offset = Math.max(0, leadHeight - window.scrollY);
-    document.documentElement.style.setProperty("--header-offset", offset + "px");
+    document.documentElement.style.setProperty("--header-offset", "0px");
   }
   function updateTopLayout() {
     if (siteHeader) {
       document.documentElement.style.setProperty("--header-height", siteHeader.offsetHeight + "px");
     }
-    if (siteLead) {
-      document.documentElement.style.setProperty("--lead-height", getLeadHeight() + "px");
-    }
+    document.documentElement.style.setProperty("--lead-height", getLeadHeight() + "px");
     updateHeaderOffset();
   }
   updateTopLayout();

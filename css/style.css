@@ -53,8 +53,8 @@ img {
 }
 
 header.sticky-top {
-  position: fixed;
-  top: var(--header-offset, var(--lead-height, 0px));
+  position: sticky;
+  top: 0;
   left: 0;
   right: 0;
   width: 100%;
@@ -62,7 +62,7 @@ header.sticky-top {
 }
 
 main {
-  padding-top: var(--header-height, 73px)
+  padding-top: 0
 }
 
 .navbar>.container {
@@ -216,9 +216,23 @@ main {
 }
 
 .hero img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover
+  object-fit: cover;
+  object-position: center center
+}
+
+.hero img.hero-image-01 {
+  object-position: center 32%
+}
+
+.hero img.hero-image-02 {
+  object-position: center 22%
+}
+
+.hero img.hero-image-03 {
+  object-position: center 12%
 }
 
 .hero::after {
@@ -579,7 +593,7 @@ main {
 .scroll-cue {
   position: absolute;
   right: 2rem;
-  bottom: 2rem;
+  bottom: 3rem;
   left: auto;
   z-index: 4;
   display: inline-flex;
@@ -1345,7 +1359,10 @@ main {
   }
 }
 
+
 .site-lead-bar {
+  position: relative;
+  z-index: 1052;
   background: rgba(255, 250, 243, .94);
   overflow: hidden
 }
@@ -1374,9 +1391,9 @@ main {
 }
 
 .hero {
-  height: calc(100dvh - var(--header-height, 73px) - var(--lead-height, 0px) + 2px);
+  height: calc(100vh - var(--header-height, 73px) - var(--lead-height, 0px) + 1px);
   min-height: 0;
-  margin-bottom: 0
+  margin-bottom: -1px
 }
 
 .navbar-nav .nav-link:not(.nav-phone) {
@@ -1607,8 +1624,9 @@ main {
   }
 
   .hero {
-    height: calc(100dvh - var(--header-height, 69px) + 2px);
-    min-height: 0
+    height: calc(100vh - var(--header-height, 69px) + 1px);
+    min-height: 0;
+    margin-bottom: -1px
   }
 
   .faq-grid {
