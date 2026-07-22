@@ -1,17 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
   var introOverlay = document.querySelector(".intro-overlay");
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var heroCarouselStarted = false;
+  function startHeroSlider() {
+    var heroSlider = document.getElementById("heroSlider");
+    if (!heroSlider || !window.bootstrap || heroCarouselStarted) return;
+    heroCarouselStarted = true;
+    bootstrap.Carousel.getOrCreateInstance(heroSlider, { interval: 5000, ride: false, touch: true, pause: false, wrap: true }).cycle();
+  }
   function finishIntro() {
     document.documentElement.classList.add("intro-done");
+    startHeroSlider();
   }
   if (reduceMotion) {
     finishIntro();
   } else if (introOverlay && !document.documentElement.classList.contains("intro-done")) {
     window.setTimeout(finishIntro, 4900);
   } else if (introOverlay) {
-    introOverlay.addEventListener("animationend", function () {
-      document.documentElement.classList.add("intro-done");
-    });
+    introOverlay.addEventListener("animationend", finishIntro);
+  } else {
+    startHeroSlider();
   }
   var siteHeader = document.querySelector("header");
   var siteLead = document.querySelector(".site-lead-bar");
@@ -20,7 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return siteLead.offsetHeight;
   }
   function updateHeaderOffset() {
-    document.documentElement.style.setProperty("--header-offset", "0px");
+    var offset = Math.max(getLeadHeight() - window.scrollY, 0);
+    document.documentElement.style.setProperty("--header-offset", offset + "px");
   }
   function updateTopLayout() {
     if (siteHeader) {
@@ -32,10 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
   updateTopLayout();
   window.addEventListener("resize", updateTopLayout);
   window.addEventListener("scroll", updateHeaderOffset, { passive: true });
-  var heroSlider = document.getElementById("heroSlider");
-  if (heroSlider && window.bootstrap) {
-    bootstrap.Carousel.getOrCreateInstance(heroSlider, { interval: 5000, ride: "carousel", touch: true, pause: false, wrap: true }).cycle();
-  }
   var topCue = document.querySelector(".top-cue");
   var hero = document.querySelector(".hero");
   if (topCue && hero && "IntersectionObserver" in window) {

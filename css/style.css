@@ -51,20 +51,21 @@ img {
   z-index: 1051;
   background: rgba(255, 250, 243, .94);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(184, 138, 95, .16)
+  padding-top: 1rem
 }
 
 header.sticky-top {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--header-offset, 0px);
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1050
+  z-index: 1050;
+  transition: top .12s linear
 }
 
 main {
-  padding-top: 0
+  padding-top: var(--header-height, 73px)
 }
 
 .navbar>.container {
@@ -855,7 +856,21 @@ main {
 .navbar-brand {
   display: inline-flex;
   align-items: center;
-  gap: .55rem
+  gap: .55rem;
+  overflow: visible
+}
+
+.site-logo {
+  display: block;
+  width: auto;
+  object-fit: contain;
+  transform: scale(3.8);
+  transform-origin: left center
+}
+
+.site-logo-header,
+.site-logo-footer {
+  height: 38px
 }
 
 .brand-mark {
@@ -969,10 +984,12 @@ main {
   display: block;
   width: clamp(165px, 20vw, 260px);
   aspect-ratio: 4/3;
-  border: 8px solid rgba(255, 253, 248, .86);
+  border: 0;
   border-radius: 18px;
+  background-color: transparent;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   box-shadow: 0 18px 42px rgba(80, 58, 38, .1);
   opacity: .22;
   filter: saturate(.88)
@@ -981,76 +998,63 @@ main {
 .flow-bg-collage span:nth-child(1) {
   left: 39%;
   top: 1%;
-  background-image: url("https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #050403; */
+  background-image: url("../images/撮影の流れ.avif");
   transform: rotate(-7deg)
 }
 
 .flow-bg-collage span:nth-child(2) {
   left: 65%;
   top: 14%;
-  background-image: url("https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #fa0000; */
+  background-image: url("../images/撮影の流れ7.avif");
   transform: rotate(5deg)
 }
 
 .flow-bg-collage span:nth-child(3) {
   left: 79%;
   top: 55%;
-  background-image: url("https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #0116fa; */
+  background-image: url("../images/撮影の流れ3.avif");
   transform: rotate(-4deg)
 }
 
 .flow-bg-collage span:nth-child(4) {
   left: 12%;
   top: 48%;
-  background-image: url("https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #ff8205; */
+  background-image: url("../images/撮影の流れ4.avif");
   transform: rotate(6deg)
 }
 
 .flow-bg-collage span:nth-child(5) {
   left: 0%;
   top: 25%;
-  /* width: clamp(150px, 18vw, 235px); */
-  background-image: url("https://images.unsplash.com/photo-1602052577122-f73b9710adba?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #00fffb; */
+  background-image: url("../images/撮影の流れ5.avif");
   transform: rotate(3deg)
 }
 
 .flow-bg-collage span:nth-child(6) {
   left: 38%;
   bottom: 2%;
-  /* width: clamp(150px, 18vw, 235px); */
-  background-image: url("https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #00363c; */
+  background-image: url("../images/撮影の流れ6.avif");
   transform: rotate(-6deg)
 }
 
 .flow-bg-collage span:nth-child(7) {
   left: 65%;
   bottom: 2%;
-  /* width: clamp(150px, 18vw, 235px); */
-  background-image: url("https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #c3ff00; */
+  background-image: url("../images/撮影の流れ2.avif");
   transform: rotate(8deg)
 }
 
 .flow-bg-collage span:nth-child(8) {
   left: 40%;
   top: 40%;
-  /* width: clamp(145px, 17vw, 220px); */
-  background-image: url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=72");
-  /* background-color: #000000; */
+  background-image: url("../images/撮影の流れ9.avif");
   transform: rotate(4deg)
 }
 
 .flow-bg-collage span:nth-child(9) {
   left: 0%;
   bottom: 3%;
-  /* width: clamp(145px, 17vw, 220px); */
-  background-image: url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=700&q=72");
+  background-image: url("../images/撮影の流れ.avif");
   transform: rotate(-5deg)
 }
 
@@ -1396,15 +1400,15 @@ main {
     overflow: hidden
   }
 
-  .nav-mobile-cta:nth-of-type(5) {
+  .nav-mobile-cta:nth-of-type(7) {
     grid-column: 1 / -1;
-    grid-row: 5;
+    grid-row: 7;
     margin-top: 2.4rem
   }
 
-  .nav-mobile-cta:nth-of-type(6) {
+  .nav-mobile-cta:nth-of-type(8) {
     grid-column: 1 / -1;
-    grid-row: 6
+    grid-row: 8
   }
 
   #mainNav .navbar-nav {
@@ -1432,11 +1436,11 @@ main {
     box-shadow: 0 12px 26px rgba(80, 58, 38, .12)
   }
 
-  #mainNav .nav-mobile-cta:nth-of-type(5) .mobile-nav-button {
+  #mainNav .nav-mobile-cta:nth-of-type(7) .mobile-nav-button {
     background: var(--instagram) !important
   }
 
-  #mainNav .nav-mobile-cta:nth-of-type(6) .mobile-nav-button {
+  #mainNav .nav-mobile-cta:nth-of-type(8) .mobile-nav-button {
     background: var(--line) !important
   }
 
@@ -1472,11 +1476,11 @@ main {
     white-space: nowrap
   }
 
-  .nav-mobile-cta:nth-of-type(5) .mobile-nav-button i {
+  .nav-mobile-cta:nth-of-type(7) .mobile-nav-button i {
     color: #dd2a7b
   }
 
-  .nav-mobile-cta:nth-of-type(6) .mobile-nav-button i {
+  .nav-mobile-cta:nth-of-type(8) .mobile-nav-button i {
     color: var(--line)
   }
 
@@ -1553,8 +1557,8 @@ main {
 }
 
 .navbar {
-  border-bottom: 1px solid rgba(184, 138, 95, .18);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .45)
+  border-bottom: 0;
+  box-shadow: 0 10px 28px rgba(80, 58, 38, .08)
 }
 
 .navbar>.container {
@@ -1776,7 +1780,8 @@ main {
 .footer-brand {
   display: inline-flex;
   align-items: center;
-  gap: .55rem
+  gap: .55rem;
+  overflow: visible
 }
 
 .footer-brand .brand-mark {
@@ -1904,6 +1909,11 @@ main {
 
   .navbar-brand {
     font-size: 1.45rem
+  }
+
+  .site-logo-header,
+  .site-logo-footer {
+    height: 34px
   }
 
   .brand-mark {
