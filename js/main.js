@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   } else if (introOverlay) {
     introOverlay.addEventListener("animationend", finishIntro);
   } else {
-    startHeroSlider();
+    finishIntro();
   }
   var siteHeader = document.querySelector("header");
   var siteLead = document.querySelector(".site-lead-bar");
@@ -73,8 +73,18 @@ document.addEventListener("DOMContentLoaded", function () {
   var menuTrack = document.getElementById("menuTrack");
   var menuPrev = document.querySelector("[data-menu-prev]");
   var menuNext = document.querySelector("[data-menu-next]");
+  var stackedMenuQuery = window.matchMedia("(max-width: 575.98px)");
+  function isMenuStacked() {
+    return stackedMenuQuery.matches;
+  }
   function updateMenuButtons() {
     if (!menuTrack) return;
+    if (isMenuStacked()) {
+      menuTrack.scrollLeft = 0;
+      if (menuPrev) menuPrev.disabled = true;
+      if (menuNext) menuNext.disabled = true;
+      return;
+    }
     var maxScroll = Math.max(0, menuTrack.scrollWidth - menuTrack.clientWidth - 2);
     var atStart = menuTrack.scrollLeft <= 2;
     var atEnd = menuTrack.scrollLeft >= maxScroll;
@@ -83,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   function slideMenu(direction) {
     if (!menuTrack) return;
+    if (isMenuStacked()) return;
     var card = menuTrack.querySelector(".menu-slide");
     var gap = parseFloat(getComputedStyle(menuTrack).gap) || 0;
     var amount = card ? card.getBoundingClientRect().width + gap : menuTrack.clientWidth;
@@ -94,10 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
   if (menuTrack) {
     menuTrack.addEventListener("scroll", updateMenuButtons, { passive: true });
     window.addEventListener("resize", updateMenuButtons);
+    if (stackedMenuQuery.addEventListener) {
+      stackedMenuQuery.addEventListener("change", updateMenuButtons);
+    } else if (stackedMenuQuery.addListener) {
+      stackedMenuQuery.addListener(updateMenuButtons);
+    }
     updateMenuButtons();
   }
   var mainNav = document.getElementById("mainNav");
   if (mainNav) {
+    var siteHeader = mainNav.closest("header");
     var navToggler = document.querySelector('[data-bs-target="#mainNav"]');
     var navSubmenuToggle = mainNav.querySelector(".nav-submenu-toggle");
     var navSubmenuParent = mainNav.querySelector(".nav-has-submenu");
@@ -161,6 +178,12 @@ document.addEventListener("DOMContentLoaded", function () {
         closeNavSubmenu();
       });
     });
+    if (siteHeader) {
+      siteHeader.addEventListener("mouseleave", function () {
+        if (isMobileNav()) return;
+        closeNavSubmenu();
+      });
+    }
     if (navToggler) {
       navToggler.addEventListener("click", function () {
         updateTopLayout();
@@ -185,4 +208,43 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+  var galleryButtons = document.querySelectorAll(".gallery-lightbox");
+  if (galleryButtons.length) {
+    var galleryModal = document.createElement("div");
+    galleryModal.className = "gallery-modal";
+    galleryModal.setAttribute("role", "dialog");
+    galleryModal.setAttribute("aria-modal", "true");
+    galleryModal.setAttribute("aria-label", "ギャラリー画像の拡大表示");
+    galleryModal.innerHTML = '<div class="gallery-modal-inner"><button class="gallery-modal-close" type="button" aria-label="閉じる">&times;</button><img class="gallery-modal-img" src="" alt=""></div>';
+    document.body.appendChild(galleryModal);
+    var galleryModalImg = galleryModal.querySelector(".gallery-modal-img");
+    var galleryModalClose = galleryModal.querySelector(".gallery-modal-close");
+    var lastGalleryTrigger = null;
+    function closeGalleryModal() {
+      galleryModal.classList.remove("is-open");
+      document.documentElement.classList.remove("nav-lock");
+      document.body.classList.remove("nav-lock");
+      if (lastGalleryTrigger) lastGalleryTrigger.focus();
+    }
+    galleryButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        lastGalleryTrigger = button;
+        galleryModalImg.src = button.getAttribute("data-gallery-src");
+        galleryModalImg.alt = button.getAttribute("data-gallery-alt") || "";
+        galleryModal.classList.add("is-open");
+        document.documentElement.classList.add("nav-lock");
+        document.body.classList.add("nav-lock");
+        galleryModalClose.focus();
+      });
+    });
+    galleryModalClose.addEventListener("click", closeGalleryModal);
+    galleryModal.addEventListener("click", function (event) {
+      if (event.target === galleryModal) closeGalleryModal();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && galleryModal.classList.contains("is-open")) {
+        closeGalleryModal();
+      }
+    });
+  }
 });
