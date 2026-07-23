@@ -130,12 +130,12 @@ main {
 }
 
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
-  top: .35rem;
+  top: 0;
   transform: rotate(45deg)
 }
 
 .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
-  top: .5rem;
+  top: 0;
   transform: rotate(-45deg)
 }
 
@@ -404,7 +404,7 @@ main {
 }
 
 #menu::before {
-  content: "";
+  content: none;
   position: absolute;
   top: 28px;
   right: max(24px, calc((100vw - 1180px)/2));
@@ -422,6 +422,7 @@ main {
 }
 
 .plan-name {
+  display: none;
   margin: .15rem 0 .3rem;
   color: var(--ink);
   font-weight: 800
@@ -435,9 +436,11 @@ main {
 }
 
 .plan-note {
+  align-self: center;
   margin: 0 0 1rem;
   color: var(--muted);
-  font-size: .92rem
+  font-size: .92rem;
+  text-align: center
 }
 
 .menu-detail-link {
@@ -448,16 +451,17 @@ main {
   min-height: 42px;
   margin-top: auto;
   padding: .55rem 1.05rem;
-  border: 1px solid rgba(184, 138, 95, .36);
+  border: 0;
   border-radius: 999px;
-  color: #8a5f39;
+  background: rgba(255, 184, 162, .28);
+  color: #7a5636;
   font-size: .88rem;
   font-weight: 800;
   transition: transform .32s ease, background .32s ease, color .32s ease
 }
 
 .menu-detail-link:hover {
-  background: var(--accent);
+  background: rgba(184, 138, 95, .9);
   color: #fff;
   transform: scale(1.04)
 }
@@ -1789,9 +1793,9 @@ main {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 2px solid color-mix(in srgb, var(--menu-accent, #e8b79f) 42%, #fff);
+  border: 2px solid rgba(126, 154, 137, .34);
   border-radius: 24px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--menu-accent, #e8b79f) 12%, #fff) 0%, #fff 58%);
+  background: linear-gradient(180deg, rgba(126, 154, 137, .08) 0%, #fff 58%);
   box-shadow: 0 18px 36px rgba(80, 58, 38, .09);
   isolation: isolate;
   transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease
@@ -1803,30 +1807,17 @@ main {
   top: 12px;
   left: 18px;
   z-index: 2;
-  width: 76px;
-  height: 22px;
+  width: 116px;
+  height: 34px;
   border-radius: 999px;
-  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--menu-accent, #e8b79f) 58%, #fff) 0 7px, rgba(255, 255, 255, .86) 7px 14px);
+  background: repeating-linear-gradient(135deg, #ffd6ca 0 14px, #fffaf3 14px 32px);
   box-shadow: 0 8px 16px rgba(80, 58, 38, .08);
   transform: rotate(-6deg);
   pointer-events: none
 }
 
 .menu-card::after {
-  content: "PHOTO";
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  padding: .18rem .62rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .88);
-  color: color-mix(in srgb, var(--menu-accent, #e8b79f) 70%, #7c5735);
-  font-size: .68rem;
-  font-weight: 900;
-  letter-spacing: .08em;
-  box-shadow: 0 8px 16px rgba(80, 58, 38, .08);
-  pointer-events: none
+  content: none
 }
 
 .menu-slide:nth-child(1) {
@@ -1859,16 +1850,24 @@ main {
 
 .menu-card:hover {
   transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--menu-accent, #e8b79f) 62%, #fff);
+  border-color: rgba(126, 154, 137, .56);
   box-shadow: 0 24px 44px rgba(80, 58, 38, .13)
 }
 
-.menu-card img {
+.menu-image-link {
+  display: block;
   width: calc(100% - 24px);
-  height: 230px;
   margin: 12px 12px 0;
   border-radius: 18px;
-  box-shadow: 0 12px 24px rgba(80, 58, 38, .1);
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(80, 58, 38, .1)
+}
+
+.menu-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  object-position: top center;
   transition: transform .34s ease
 }
 
@@ -1879,7 +1878,7 @@ main {
 @media (hover:none) {
   .menu-card:hover {
     transform: none;
-    border-color: color-mix(in srgb, var(--menu-accent, #e8b79f) 42%, #fff);
+    border-color: rgba(126, 154, 137, .34);
     box-shadow: 0 18px 36px rgba(80, 58, 38, .09)
   }
 
@@ -1899,8 +1898,23 @@ main {
 }
 
 .menu-card h3 {
-  margin-bottom: .9rem;
-  font-size: 1.26rem
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 116px;
+  min-height: 34px;
+  margin: 0;
+  padding: .2rem .5rem;
+  color: #6f4d31;
+  font-size: .92rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-align: center;
+  transform: rotate(-6deg)
 }
 
 .menu-card .card-body>p:first-of-type {
@@ -1910,9 +1924,20 @@ main {
 }
 
 .menu-card h3::after {
-  height: 5px;
-  background: linear-gradient(90deg, var(--menu-accent, var(--accent)), rgba(255, 255, 255, .9));
-  box-shadow: 0 4px 0 color-mix(in srgb, var(--menu-accent, var(--accent)) 20%, transparent)
+  content: none
+}
+
+.menu-slide:nth-child(4) .menu-card::before,
+.menu-slide:nth-child(4) .menu-card h3 {
+  width: 136px;
+  min-height: 42px
+}
+
+.menu-slide:nth-child(4) .menu-card h3 {
+  padding: .28rem .65rem;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  white-space: normal
 }
 
 .plan-name {
@@ -1925,20 +1950,25 @@ main {
 }
 
 .plan-price {
+  align-self: center;
+  text-align: center;
   color: color-mix(in srgb, var(--menu-accent, #e8b79f) 48%, #8a5f39);
   font-size: 1.38rem;
   line-height: 1.25
 }
 
 .menu-detail-link {
+  align-self: center;
+  margin-right: auto;
+  margin-left: auto;
   border: 0;
-  background: color-mix(in srgb, var(--menu-accent, #e8b79f) 86%, #fff);
-  color: #fff;
-  box-shadow: 0 10px 18px color-mix(in srgb, var(--menu-accent, #e8b79f) 28%, transparent)
+  background: rgba(255, 184, 162, .28);
+  color: #7a5636;
+  box-shadow: none
 }
 
 .menu-detail-link:hover {
-  background: color-mix(in srgb, var(--menu-accent, #e8b79f) 76%, #8a5f39);
+  background: rgba(184, 138, 95, .9);
   color: #fff
 }
 
@@ -2230,6 +2260,10 @@ main {
 }
 
 @media (max-width:575.98px) {
+  .section {
+    padding: 48px 0
+  }
+
   .menu-carousel {
     padding: 0
   }
@@ -2237,7 +2271,7 @@ main {
   .menu-track {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.35rem;
+    gap: .75rem;
     width: 100%;
     overflow: visible;
     padding: .25rem .15rem 0;
@@ -2259,35 +2293,149 @@ main {
   }
 
   .menu-card {
-    border-radius: 20px
+    min-height: 132px;
+    background: #fff;
+    border: 1px solid rgba(126, 154, 137, .34);
+    border-radius: 20px;
+    box-shadow: 0 10px 24px rgba(80, 58, 38, .07);
+    display: grid;
+    grid-template-columns: 1fr minmax(112px, .92fr);
+    align-items: stretch;
+    column-gap: .45rem;
+    padding: .75rem;
+    overflow: visible
+  }
+
+  .menu-image-link {
+    position: relative;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-self: start;
+    width: calc(100% - 14px);
+    height: 96px;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: none;
+    overflow: visible
+  }
+
+  .menu-image-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border: 2px solid rgba(126, 154, 137, .46);
+    border-radius: 14px;
+    transform: translate(12px, 12px);
+    pointer-events: none
   }
 
   .menu-card img {
-    height: 160px;
-    border-radius: 15px
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 12px
   }
 
   .menu-card::before {
-    width: 62px;
-    height: 18px
+    content: none
+  }
+
+  .menu-card::after {
+    content: none
   }
 
   .menu-card .card-body {
+    grid-column: 1;
+    grid-row: 1;
+    position: static;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
+    min-height: 132px;
+    padding: 0;
     text-align: center
   }
 
   .menu-card h3 {
-    margin-bottom: 0
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 112px;
+    min-height: 32px;
+    align-self: flex-start;
+    margin: -.2rem 0 1.45rem;
+    padding: .2rem .5rem;
+    border-radius: 999px;
+    background: repeating-linear-gradient(135deg, #ffd6ca 0 16px, #fffaf3 16px 36px);
+    box-shadow: 0 6px 14px rgba(143, 94, 67, .12);
+    font-size: .86rem;
+    transform: rotate(-6deg)
   }
 
-  .menu-card .card-body>p,
-  .menu-card .plan-name,
-  .menu-card .plan-price,
-  .menu-card .plan-note {
+  .menu-slide:nth-child(4) .menu-card h3 {
+    width: 132px;
+    min-height: 40px
+  }
+
+  .menu-slide:nth-child(4) .menu-card h3 {
+    line-height: 1.15;
+    white-space: normal
+  }
+
+  .menu-card .plan-name {
     display: none
+  }
+
+  .menu-card .card-body>p:first-of-type {
+    display: none
+  }
+
+  .menu-card .plan-price {
+    display: block;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.2
+  }
+
+  .menu-card .plan-note {
+    display: block;
+    margin: .28rem auto 0;
+    font-size: .72rem;
+    line-height: 1.35;
+    text-align: center
+  }
+
+  .menu-detail-link {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 28px;
+    min-height: 0;
+    margin: .5rem auto 0;
+    padding: .2rem .55rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 184, 162, .28);
+    color: #7a5636;
+    font-size: .68rem;
+    font-weight: 800;
+    line-height: 1;
+    transform: none;
+    box-shadow: none
+  }
+
+  .menu-detail-link::before {
+    content: none
+  }
+
+  .menu-detail-link:hover {
+    transform: scale(1.03)
   }
 
   .menu-nav {
